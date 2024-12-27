@@ -538,7 +538,7 @@
                     </div>
                 </div>
             </div> -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-12 mb-4">
                     <div class="card bg-yellow-100 border-0 shadow">
                         <div class="card-header d-sm-flex flex-row align-items-center flex-0">
@@ -652,7 +652,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-12 col-xl-8">
                     <div class="row">
@@ -661,7 +661,7 @@
                                 <div class="card-header">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <h2 class="fs-5 fw-bold mb-0">Page visits</h2>
+                                            <h2 class="fs-5 fw-bold mb-0">Demand Forecasting</h2>
                                         </div>
                                         <div class="col text-end">
                                             <a href="#" class="btn btn-sm btn-primary">See all</a>
@@ -677,80 +677,80 @@
                                       <thead class="thead-light">
                                           <tr>
                                               <th class="border-bottom" scope="col">Month</th>
-                                              <th class="border-bottom" scope="col">Project Name</th>
+                                              <th class="border-bottom" scope="col">Product Name</th>
                                               <th class="border-bottom" scope="col">Historical Sales (Units)</th>
                                               <th class="border-bottom" scope="col">Forecasted Sales (Units)</th>
                                           </tr>
                                       </thead>
                                       <tbody>
                                           <tr>
-                                              <td>January 2024</td>
+                                              <td>January 2025</td>
                                               <td>Shirts</td>
                                               <td>1,020</td>
                                               <td>1,100</td>
                                           </tr>
                                           <tr>
-                                              <td>February 2024</td>
+                                              <td>February 2025</td>
                                               <td>Jeans</td>
                                               <td>1,050</td>
                                               <td>1,120</td>
                                           </tr>
                                           <tr>
-                                              <td>March 2024</td>
+                                              <td>March 2025</td>
                                               <td>T-Shirts</td>
                                               <td>1,080</td>
                                               <td>1,150</td>
                                           </tr>
                                           <tr>
-                                              <td>April 2024</td>
+                                              <td>April 2025</td>
                                               <td>Jackets</td>
                                               <td>1,110</td>
                                               <td>1,180</td>
                                           </tr>
                                           <tr>
-                                              <td>May 2024</td>
+                                              <td>May 2025</td>
                                               <td>Sneakers</td>
                                               <td>1,150</td>
                                               <td>1,200</td>
                                           </tr>
                                           <tr>
-                                              <td>June 2024</td>
+                                              <td>June 2025</td>
                                               <td>Accessories</td>
                                               <td>-</td>
                                               <td><strong>1,230</strong></td>
                                           </tr>
                                           <tr>
-                                              <td>July 2024</td>
+                                              <td>July 2025</td>
                                               <td>Hats</td>
                                               <td>1,200</td>
                                               <td>1,250</td>
                                           </tr>
                                           <tr>
-                                              <td>August 2024</td>
+                                              <td>August 2025</td>
                                               <td>Scarves</td>
                                               <td>1,250</td>
                                               <td>1,300</td>
                                           </tr>
                                           <tr>
-                                              <td>September 2024</td>
+                                              <td>September 2025</td>
                                               <td>Gloves</td>
                                               <td>1,300</td>
                                               <td>1,350</td>
                                           </tr>
                                           <tr>
-                                              <td>October 2024</td>
+                                              <td>October 2025</td>
                                               <td>Belts</td>
                                               <td>1,350</td>
                                               <td>1,400</td>
                                           </tr>
                                           <tr>
-                                              <td>November 2024</td>
+                                              <td>November 2025</td>
                                               <td>Socks</td>
                                               <td>1,400</td>
                                               <td>1,450</td>
                                           </tr>
                                           <tr>
-                                              <td>December 2024</td>
+                                              <td>December 2025</td>
                                               <td>Winter Coats</td>
                                               <td>1,450</td>
                                               <td>1,500</td>
@@ -758,6 +758,7 @@
                                       </tbody>
                                   </table>
                               </div>
+                              
                               
                               
 
@@ -1181,3 +1182,36 @@
 </body>
 
 </html>
+
+
+
+<script>
+  async function fetchSalesData() {
+      const response = await fetch('/sales-forecast');
+      const data = await response.json();
+  
+      const tableBody = document.querySelector('tbody');
+      tableBody.innerHTML = ''; // Clear existing rows
+  
+      Object.keys(data.historical_sales).forEach((month, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+              <td>${month} 2025</td>
+              <td>${getProductName(index)}</td>
+              <td>${data.historical_sales[month] || '-'}</td>
+              <td>${data.forecasted_sales[month] ? data.forecasted_sales[month].toFixed(2) : '-'}</td>
+          `;
+          tableBody.appendChild(row);
+      });
+  }
+  
+  function getProductName(index) {
+      const products = ["Shirts", "Jeans", "T-Shirts", "Jackets", "Sneakers", "Accessories", "Hats", "Scarves", "Gloves", "Belts", "Socks", "Winter Coats"];
+      return products[index];
+  }
+  
+  // Fetch and populate data on page load
+  fetchSalesData();
+  </script>
+  
+  
